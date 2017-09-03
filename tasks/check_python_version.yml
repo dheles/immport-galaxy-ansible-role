@@ -1,0 +1,13 @@
+---
+- name: get python version
+  shell:   "python -V 2>&1"
+  register: python_version_result
+  changed_when: false
+
+  # NOTE: regex_search() returns an array of matches, so we will need python_version_result[0] to make use of the first (and only) value
+- set_fact: returned_python_version={{ python_version_result.stdout | regex_search('(?P<test>\d+\.\d+)', '\\g<test>' ) }}
+
+- name: test python version
+  fail:
+    msg: "this installation of ImmPort Galaxy requires python version {{ immport_minimum_python_version }} or higher"
+  when: "not returned_python_version[0] | version_compare('{{ immport_minimum_python_version }}', '>=')"

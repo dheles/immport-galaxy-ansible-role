@@ -1,2 +1,4 @@
 ---
-# tasks file for immport-galaxy
+# tasks file for immport-galaxy- name: check python version
+- name: check python version
+  include: check_python_version.yml
