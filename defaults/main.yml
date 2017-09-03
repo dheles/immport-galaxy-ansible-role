@@ -1,2 +1,7 @@
 ---
-# defaults file for immport-galaxyimmport_minimum_python_version: "2.7"
+login_user:                     "deploy"
+
+immport_minimum_python_version: "2.7"
+immport_repo:                   "https://github.com/ImmPortDB/immport-galaxy"
+immport_app_name:               "immport-galaxy"
+immport_download_dir:           "/home/{{ login_user }}/{{ immport_app_name }}"

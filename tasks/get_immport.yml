@@ -1,0 +1,20 @@
+---
+- name: install prereqs
+  package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - "git"
+
+- name: get immport galaxy from repo
+  git:
+    repo: "{{ immport_repo }}"
+    dest: "{{ immport_download_dir }}"
+
+- name: start galaxy
+  shell: screen -S galaxy -dm bash -c "./run.sh >& galaxy.log"
+  args:
+    chdir: "{{ immport_download_dir }}/"
+  async: 30
+  poll: 0
