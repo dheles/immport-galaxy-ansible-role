@@ -12,9 +12,27 @@
     repo: "{{ immport_repo }}"
     dest: "{{ immport_download_dir }}"
 
+- name: create our galaxy config file from the sample
+  copy:
+    remote_src: true
+    src: "{{ immport_download_dir }}/config/galaxy.ini.sample"
+    dest: "{{ immport_download_dir }}/config/galaxy.ini"
+
+- name: open galaxy to the network
+  lineinfile:
+    dest: "{{ immport_download_dir }}/config/galaxy.ini"
+    line: "host = 0.0.0.0"
+    insertafter: '^\[server\:main\]'
+    state:  present
+
 - name: start galaxy
   shell: screen -S galaxy -dm bash -c "./run.sh >& galaxy.log"
   args:
     chdir: "{{ immport_download_dir }}/"
   async: 30
   poll: 0
+
+- name: wait for web server
+  wait_for:
+      port: "{{ immport_webserver_port }}"
+      delay: 10
