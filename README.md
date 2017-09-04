@@ -31,7 +31,7 @@ other, self-explanatory defaults:
 
     immport_repo:                   "https://github.com/ImmPortDB/immport-galaxy"
     immport_app_name:               "immport-galaxy"
-    immport_download_dir:           "/home/{{ login_user }}/{{ immport_app_name }}"
+    immport_server_dir:           "/home/{{ login_user }}/{{ immport_app_name }}"
 
 Dependencies
 ------------

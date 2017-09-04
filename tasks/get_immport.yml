@@ -10,17 +10,17 @@
 - name: get immport galaxy from repo
   git:
     repo: "{{ immport_repo }}"
-    dest: "{{ immport_download_dir }}"
+    dest: "{{ immport_server_dir }}"
 
 - name: create our galaxy config file from the sample
   copy:
     remote_src: true
-    src: "{{ immport_download_dir }}/config/galaxy.ini.sample"
-    dest: "{{ immport_download_dir }}/config/galaxy.ini"
+    src: "{{ immport_server_dir }}/config/galaxy.ini.sample"
+    dest: "{{ immport_server_dir }}/config/galaxy.ini"
 
 - name: open galaxy to the network
   lineinfile:
-    dest: "{{ immport_download_dir }}/config/galaxy.ini"
+    dest: "{{ immport_server_dir }}/config/galaxy.ini"
     line: "host = 0.0.0.0"
     insertafter: '^\[server\:main\]'
     state:  present
