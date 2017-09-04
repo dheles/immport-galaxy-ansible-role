@@ -1,0 +1,20 @@
+---
+immport_package_dependencies:
+  - gfortran
+  - g++
+  - libreadline-dev
+  - libx11-dev
+  - xorg-dev
+  - python-dev
+  - libcurl4-openssl-dev
+  - libxml2-dev
+  - libbz2-dev
+  - liblzma-dev
+  - libpcre3-dev
+  - libhdf5-serial-dev
+  - libhdf5-dev
+  - mesa-common-dev
+  - libglu1-mesa-dev
+  - git
+  - lsof
+  - default-jre

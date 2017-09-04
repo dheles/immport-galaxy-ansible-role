@@ -1,12 +1,13 @@
 ---
-- name: install prereqs
+- name: include os-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: install package dependencies
   package:
     name: "{{ item }}"
     state: present
   become: true
-  with_items:
-    - git
-    - lsof
+  with_items: "{{ immport_package_dependencies }}"
 
 - name: stat server dir
   stat:
