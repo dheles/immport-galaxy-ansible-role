@@ -5,7 +5,17 @@
     state: present
   become: true
   with_items:
-    - "git"
+    - git
+    - lsof
+
+- name: stat server dir
+  stat:
+    path: "{{ immport_server_dir }}"
+  register: server_dir_stat
+
+- name: stop servers before relaunching
+  include: stop_servers.yml
+  when: server_dir_stat.stat.exists
 
 - name: get immport galaxy from repo
   git:
@@ -25,14 +35,5 @@
     insertafter: '^\[server\:main\]'
     state:  present
 
-- name: start galaxy
-  shell: screen -S galaxy -dm bash -c "./run.sh >& galaxy.log"
-  args:
-    chdir: "{{ immport_download_dir }}/"
-  async: 30
-  poll: 0
-
-- name: wait for web server
-  wait_for:
-      port: "{{ immport_webserver_port }}"
-      delay: 10
+- name: start servers
+  include: start_servers.yml

@@ -1,0 +1,13 @@
+- name: "start servers"
+  shell: "screen -S {{ item.name }} -dm bash -c '{{ item.start_command }}'"
+  args:
+    chdir: "{{ immport_server_dir }}"
+  async: 30
+  poll: 0
+  with_items: "{{ immport_servers }}"
+
+- name: wait for servers
+  wait_for:
+    port: "{{ item.port }}"
+    delay: 10
+  with_items: "{{ immport_servers }}"

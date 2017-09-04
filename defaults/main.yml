@@ -6,3 +6,7 @@ immport_repo:                   "https://github.com/ImmPortDB/immport-galaxy"
 immport_app_name:               "immport-galaxy"
 immport_server_dir:             "/home/{{ login_user }}/{{ immport_app_name }}"
 immport_webserver_port:         8080
+immport_servers:
+- name:                         "webserver"
+  port:                         "{{ immport_webserver_port }}"
+  start_command:                "./run.sh >& webserver.log"

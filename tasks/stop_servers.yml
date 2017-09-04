@@ -1,0 +1,32 @@
+# FIXME: looks like my use of screen isn't working as well as i'd like (at least on macOS)
+- name: "stop servers running in screens"
+  shell: "screen -S {{ item.name }} -X quit"
+  args:
+    chdir: "{{ immport_server_dir }}"
+  register: screen_result
+  failed_when: false
+  changed_when: "'No screen session found' not in screen_result.stdout"
+  with_items: "{{ immport_servers }}"
+
+- name: get PIDs of any servers still running
+  shell: "lsof -t -i:{{ item.port }}"
+  register: PID_list
+  failed_when: false
+  changed_when: PID_list.stdout != ""
+  with_items: "{{ immport_servers }}"
+
+- debug:
+    var: PID_list
+    verbosity: 2
+
+# TODO: troubleshoot and get rid of this brute-force (as i'm not sure things really get cleaned up this way)
+- name: make ugly sure servers are stopped
+  command: "kill -9 {{ item.stdout }}"
+  when: item.rc == 0
+  with_items: "{{ PID_list.results }}"
+
+- name: make sure servers are stopped and their ports are closed before proceeding
+  wait_for:
+    port: "{{ item.port }}"
+    state: stopped
+  with_items: "{{ immport_servers }}"
