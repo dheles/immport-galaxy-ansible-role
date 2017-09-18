@@ -1,0 +1,9 @@
+---
+- name: install dependencies for auto-detection of FCS (Flow Cytometry Standard) files
+  shell: bash -lc "{{ item }}"
+  with_items:
+    - "conda config --add channels conda-forge"
+    - "conda config --add channels defaults"
+    - "conda config --add channels r"
+    - "conda config --add channels bioconda"
+    - "conda install ig-checkFCS"

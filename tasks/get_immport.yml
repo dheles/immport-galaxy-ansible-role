@@ -45,6 +45,10 @@
   include: compile_flock.yml
   tags: ['flock']
 
+- name: install dependencies for auto-detection of FCS (Flow Cytometry Standard) files
+  include: FCS_dependencies.yml
+  tags: ['fcs']
+
 - name: open galaxy to the network
   lineinfile:
     dest: "{{ immport_server_dir }}/config/galaxy.ini"
