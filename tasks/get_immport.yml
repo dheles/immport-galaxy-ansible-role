@@ -22,6 +22,7 @@
   git:
     repo: "{{ immport_repo }}"
     dest: "{{ immport_server_dir }}"
+    force: true
 
 - name: create our galaxy config file from the sample
   copy:
