@@ -30,6 +30,13 @@
     src: "{{ immport_server_dir }}/config/galaxy.ini.sample"
     dest: "{{ immport_server_dir }}/config/galaxy.ini"
 
+# TODO: there's probably a more direct way to do this.
+# the main requirement is the virtualenv for the python packages
+- name: run tests to get set up
+  command: "./run_tests.sh -unit"
+  args:
+    chdir: "{{ immport_server_dir }}"
+
 - name: open galaxy to the network
   lineinfile:
     dest: "{{ immport_server_dir }}/config/galaxy.ini"
