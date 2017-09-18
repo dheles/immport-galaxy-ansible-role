@@ -41,6 +41,10 @@
   include: python_packages.yml
   tags: ['python']
 
+- name: Compile FLOCK
+  include: compile_flock.yml
+  tags: ['flock']
+
 - name: open galaxy to the network
   lineinfile:
     dest: "{{ immport_server_dir }}/config/galaxy.ini"

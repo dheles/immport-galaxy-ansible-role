@@ -1,0 +1,9 @@
+---
+- name: compile flock
+  command: "{{ item }}"
+  args:
+    chdir: "{{ immport_server_dir }}/tools/flowtools/bin"
+  with_items:
+    - "cc -o flock1 ../src/flock1.c ../src/find_connected.c -lm"
+    - "cc -o flock2 ../src/flock2.c -lm"
+    - "cc -o cent_adjust ../src/cent_adjust.c -lm"
