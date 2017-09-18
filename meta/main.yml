@@ -6,7 +6,8 @@ galaxy_info:
 
   min_ansible_version: 2.2.1
 
-  # not a hard limitation, just the only one tested so far...
+  # Version is not a hard limitation, just the only one tested so far.
+  # OS-specific vars file only exists for Debian family, as yet
   platforms:
   - name: Ubuntu
     versions:
