@@ -37,6 +37,10 @@
   args:
     chdir: "{{ immport_server_dir }}"
 
+- name: install python packages
+  include: python_packages.yml
+  tags: ['python']
+
 - name: open galaxy to the network
   lineinfile:
     dest: "{{ immport_server_dir }}/config/galaxy.ini"

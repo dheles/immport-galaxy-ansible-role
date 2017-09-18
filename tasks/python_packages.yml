@@ -1,0 +1,10 @@
+---
+- name: deploy immport-specific requirements file
+  copy:
+    src: "immport_requirements.txt"
+    dest: "{{ immport_server_dir }}/immport_requirements.txt"
+
+- name: install python packages
+  pip:
+    requirements: "{{ immport_server_dir }}/immport_requirements.txt"
+    virtualenv: "{{ immport_server_dir }}/.venv"
